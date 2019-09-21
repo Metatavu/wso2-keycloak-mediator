@@ -99,7 +99,7 @@
             <Bundle-Name>${project.artifactId}</Bundle-Name>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>fi.metatavu.wso2.keycloak.*</Export-Package>
+            <Export-Package>${project.groupId}.*</Export-Package>
             <Import-Package>
               !javax.xml.namespace,
               javax.xml.namespace;
