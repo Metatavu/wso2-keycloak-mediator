@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.SynapseException;
 import org.apache.synapse.core.axis2.Axis2MessageContext;
 import org.apache.synapse.mediators.AbstractMediator;
 import org.keycloak.adapters.KeycloakDeployment;
@@ -36,7 +37,7 @@ public class KeycloakMediator extends AbstractMediator {
    */
   public boolean mediate(MessageContext context) {
     Axis2MessageContext messageContext = (Axis2MessageContext) context;
-
+    
     Request request = new Wso2KeycloakRequest(getTransportHeaders(messageContext));
     Wso2OIDCHttpFacade facade = new Wso2OIDCHttpFacade(request);
     KeycloakDeployment deployment = getKeycloakDeployment();
@@ -46,8 +47,12 @@ public class KeycloakMediator extends AbstractMediator {
     Wso2RequestAuthenticator authenticator = new Wso2RequestAuthenticator(facade, deployment, tokenStore, sslRedirectPort);
 
     AuthOutcome outcome = authenticator.authenticate();
-
-    return outcome == AuthOutcome.AUTHENTICATED;
+    
+    if (outcome != AuthOutcome.AUTHENTICATED) {
+      throw new SynapseException(String.format("Failed to validate access token: %s", outcome));
+    }
+    
+    return true;
   }
 
   /**
