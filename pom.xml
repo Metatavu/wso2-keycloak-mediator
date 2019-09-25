@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fi.metatavu.wso2.keycloak</groupId>
   <artifactId>keycloak-mediator</artifactId>
-  <version>1.0.1-SNAPHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>WSO2 Keycloak mediator</name>
   <url>https://github.com/Metatavu/wso2-keycloak-mediator</url>
