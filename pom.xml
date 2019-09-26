@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fi.metatavu.wso2.keycloak</groupId>
   <artifactId>keycloak-mediator</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.4</version>
   <packaging>bundle</packaging>
   <name>WSO2 Keycloak mediator</name>
   <description>WSO2 mediator for validating Bearer tokens</description>
@@ -52,7 +52,7 @@
     <developerConnection>scm:git:git@github.com:Metatavu/wso2-keycloak-mediator.git</developerConnection>
     <url>git@github.com:Metatavu/wso2-keycloak-mediator.git</url>
     <connection>scm:git:git@github.com:Metatavu/wso2-keycloak-mediator.git</connection>
-    <tag>HEAD</tag>
+    <tag>keycloak-mediator-1.0.4</tag>
   </scm>
 
   <organization>
