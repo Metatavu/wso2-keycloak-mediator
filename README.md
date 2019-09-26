@@ -11,9 +11,3 @@
       <property name="sslRequired" value="EXTERNAL"/>
       <property name="realm" value="realm"/>
     </class>
-
-    #!/bin/shcd /home/wso2carbon/extra-certs/FILES=*.crt
-    
-    keytool -importcert -noprompt -file $f -storepass wso2carbon -keystore /home/wso2carbon/wso2ei-6.5.0/repository/resources/security/client-truststore.jks -alias ${f}
-    
-    done
