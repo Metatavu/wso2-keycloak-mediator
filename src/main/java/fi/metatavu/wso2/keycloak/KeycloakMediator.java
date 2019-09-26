@@ -36,22 +36,30 @@ public class KeycloakMediator extends AbstractMediator {
    * @return whether user is allowed to continue
    */
   public boolean mediate(MessageContext context) {
-    Axis2MessageContext messageContext = (Axis2MessageContext) context;
-    
-    Request request = new Wso2KeycloakRequest(getTransportHeaders(messageContext));
-    Wso2OIDCHttpFacade facade = new Wso2OIDCHttpFacade(request);
-    KeycloakDeployment deployment = getKeycloakDeployment();
-    Wso2TokenStore tokenStore = new Wso2TokenStore();
-    int sslRedirectPort = -1;
+    try {
+      Axis2MessageContext messageContext = (Axis2MessageContext) context;
+      
+      Request request = new Wso2KeycloakRequest(getTransportHeaders(messageContext));
+      Wso2OIDCHttpFacade facade = new Wso2OIDCHttpFacade(request);
+      KeycloakDeployment deployment = getKeycloakDeployment();
+      Wso2TokenStore tokenStore = new Wso2TokenStore();
+      int sslRedirectPort = -1;
 
-    Wso2RequestAuthenticator authenticator = new Wso2RequestAuthenticator(facade, deployment, tokenStore, sslRedirectPort);
+      Wso2RequestAuthenticator authenticator = new Wso2RequestAuthenticator(facade, deployment, tokenStore, sslRedirectPort);
 
-    AuthOutcome outcome = authenticator.authenticate();
-    
-    if (outcome != AuthOutcome.AUTHENTICATED) {
-      throw new SynapseException(String.format("Failed to validate access token: %s", outcome));
+      AuthOutcome outcome = authenticator.authenticate();
+      
+      if (outcome != AuthOutcome.AUTHENTICATED) {
+        context.setProperty("ERROR_MESSAGE", "Forbidden");
+        context.setProperty("ERROR_CODE", 403);
+      }
+      
+    } catch (Throwable t) {
+      log.error("Unknown error when invoking Keycloak Mediator", t);
+      context.setProperty("ERROR_MESSAGE", "Unknown error when invoking Keycloak Mediator");
+      context.setProperty("ERROR_CODE", 500);
     }
-    
+
     return true;
   }
 
