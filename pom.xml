@@ -40,7 +40,7 @@
     
     <keycloak.version>7.0.0</keycloak.version>
     <jboss-logging.version>3.4.1.Final</jboss-logging.version>
-    <synapse.version>2.1.1-wso2v5</synapse.version>
+    <synapse.version>3.0.1</synapse.version>
   </properties>
   
   <issueManagement>
